@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMfool — SEJUROloop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: linear-gradient(135deg, #0f0a1f, #1a0f2e);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .header {
+            padding: 20px 5%; background: rgba(15,10,31,0.95); backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; z-index: 100;
+        }
+        .logo {
+            font-family: 'Space Grotesk', sans-serif; 
+            font-size: 26px; 
+            background: linear-gradient(90deg,#ff00cc,#00ffff); 
+            -webkit-background-clip:text; 
+            -webkit-text-fill-color:transparent;
+        }
+        .container { max-width: 900px; margin: 100px auto 50px; padding: 20px; }
+        .card {
+            background: rgba(255,255,255,0.07);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        h1 { font-size: 3rem; margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
+        .game { color: #00ffff; font-size: 1.4rem; margin-bottom: 30px; }
+        .price { font-size: 3.5rem; color: #ff00cc; font-weight: 700; margin: 30px 0; }
+        .payment-methods {
+            display: flex; gap: 20px; margin-top: 40px; flex-wrap: wrap;
+        }
+        .pay-btn {
+            flex: 1;
+            min-width: 280px;
+            padding: 22px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 16px;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+        .sbp { background: linear-gradient(45deg, #00cc66, #00ff88); color: #000; }
+        .card-pay { background: linear-gradient(45deg, #ff00cc, #ff66cc); color: white; }
+        .back-btn {
+            margin-top: 30px;
+            padding: 14px 32px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        #qrContainer {
+            margin-top: 30px; 
+            text-align: center; 
+            display: none;
+        }
+        #qrImage {
+            max-width: 280px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,255,100,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">SEJURO<span style="color:#00ffff;">loop</span></div>
+        <button onclick="window.location.href='index.html'" class="back-btn">← На главную</button>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1>AIMfool</h1>
+            <div class="game">Fortnite • Chapter 6</div>
+            <p>Самый невидимый и мощный чит для Fortnite. Silent Aim, Perfect Tracking, Triggerbot, No Recoil, ESP с Box + Tracers, Skin Changer, Anti-AFK и полный обход античита Epic Games. Работает стабильно на высоких рангах.</p>
+            
+            <div class="price">359 ₽</div>
+            
+            <h2 style="margin:30px 0 15px;">Выберите способ оплаты:</h2>
+            <div class="payment-methods">
+                <button onclick="paySBP()" class="pay-btn sbp">Оплатить по СБП (QR-код)</button>
+                <button onclick="payCard()" class="pay-btn card-pay">Оплатить картой</button>
+            </div>
+            
+            <div id="qrContainer">
+                <p style="margin-bottom:15px; color:#0f0;">Сканируйте QR-код для оплаты 359 ₽</p>
+                <img id="qrImage" src="" alt="QR-код">
+                <p style="margin-top:15px; font-size:0.95rem;">QR-код обновляется автоматически</p>
+            </div>
+            
+            <button onclick="window.location.href='index.html'" class="back-btn">← Вернуться к выбору читов</button>
+        </div>
+    </div>
+
+    <script>
+        let promoActivated = false;
+        
+        window.onload = () => {
+            if (localStorage.getItem('promo') === 'threemods') {
+                promoActivated = true;
+            }
+        };
+        
+        function paySBP() {
+            if (promoActivated) {
+                alert("✅ Промокод активирован!\n\nПробная версия на 7 дней доступна.\n\nСсылка на скачивание:\nhttps://sejurolop.download/aimfool-trial");
+                return;
+            }
+            
+            const timestamp = Date.now();
+            const qrUrl = `https://me-qr.com/qr?text=https://payment.sejurolop.ru/pay?order=aimfool-${timestamp}&size=300&color=00ff88`;
+            
+            document.getElementById('qrImage').src = qrUrl;
+            document.getElementById('qrContainer').style.display = 'block';
+        }
+        
+        function payCard() {
+            alert("❌ Оплата картой временно недоступна.\n\nПожалуйста, используйте оплату по СБП.");
+        }
+    </script>
+</body>
+</html>
