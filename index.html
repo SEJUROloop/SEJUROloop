@@ -52,7 +52,6 @@ header{
 
 .hero h1{
     font-size:60px;
-    margin-bottom:10px;
 }
 
 .cards{
@@ -117,39 +116,62 @@ header{
 
 <div class="card">
 <h3>PATRIKdlc</h3>
-<p>Minecraft Java + Bedrock. Полный функционал и стабильность.</p>
+<p>Minecraft Java + Bedrock</p>
 <div class="price">359 ₽</div>
-<button class="buy" onclick="go('patrik')">КУПИТЬ</button>
+<button class="buy" id="btn1" onclick="goBuy()">КУПИТЬ</button>
 </div>
 
 <div class="card">
 <h3>AIMfool</h3>
-<p>Fortnite Chapter 6. Точный и незаметный инструмент.</p>
+<p>Fortnite Chapter 6</p>
 <div class="price">359 ₽</div>
-<button class="buy" onclick="go('aim')">КУПИТЬ</button>
+<button class="buy" id="btn2" onclick="goBuy()">КУПИТЬ</button>
 </div>
 
 <div class="card">
 <h3>NeverFool</h3>
-<p>Counter-Strike 2. Rage + Legit с полной настройкой.</p>
+<p>Counter-Strike 2</p>
 <div class="price">359 ₽</div>
-<button class="buy" onclick="go('never')">КУПИТЬ</button>
+<button class="buy" id="btn3" onclick="goBuy()">КУПИТЬ</button>
 </div>
 
 </div>
 
 <script>
+
 function promo(){
     let code=prompt("Введите промокод");
     if(code==="threemods"){
         localStorage.setItem("promo","true");
-        alert("Активировано!");
-    } else alert("Неверный код");
+        applyPromo();
+        alert("Промокод активирован!");
+    } else {
+        alert("Неверный код");
+    }
 }
 
-function go(p){
-    window.location.href="buy.html?product="+p;
+function applyPromo(){
+    if(localStorage.getItem("promo")==="true"){
+        let links=[
+            "https://github.com/yourfile1",
+            "https://github.com/yourfile2",
+            "https://github.com/yourfile3"
+        ];
+
+        [btn1,btn2,btn3].forEach((btn,i)=>{
+            btn.textContent="7 ДНЕЙ БЕСПЛАТНО";
+            btn.onclick=()=>window.location.href=links[i];
+        });
+    }
 }
+
+function goBuy(){
+    window.location.href="buy.html";
+}
+
+// при загрузке
+applyPromo();
+
 </script>
 
 </body>
